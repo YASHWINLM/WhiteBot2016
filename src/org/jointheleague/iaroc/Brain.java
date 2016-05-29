@@ -15,7 +15,6 @@ public class Brain extends IRobotCreateAdapter {
     public Brain(IOIO ioio, IRobotCreateInterface create, Dashboard dashboard)
             throws ConnectionLostException {
         super(create);
-        sonar = new UltraSonicSensors(ioio);
         this.dashboard = dashboard;
     }
 
@@ -25,33 +24,15 @@ public class Brain extends IRobotCreateAdapter {
     }
     /* This method is called repeatedly. */
     public void loop() throws ConnectionLostException {
-        readSensors(SENSORS_BUMPS_AND_WHEEL_DROPS);
-        readSensors(27);
-        if (getWallSignal() > 0){
-            driveDirect(500,500);
+        readSensors(6);
+        int i=getInfraredByte();
+        int x=getWallSignal();
+        driveDirect(500, 500);
+        if(isBumpRight()&&isBumpLeft()){
+            for()
         }
-        else {
 
-            driveDirect(500, 500);
-            SystemClock.sleep(300);
-            driveDirect(500, 100);
-            SystemClock.sleep(500);
-        }
-        if (isBumpRight() && isBumpLeft()){
-            dashboard.log("front");
-            driveDirect(0, -500);
-            SystemClock.sleep(750);
-        }
-        else if (isBumpLeft()){
-            dashboard.log("left");
-            driveDirect(0, -500);
-            SystemClock.sleep(500);
-        }
-        else if (isBumpRight()){
-            dashboard.log("right");
-            driveDirect(0, -500);
-            SystemClock.sleep(500);
-        }
-        dashboard.log(getWallSignal() + "");
-    }
-}
+
+
+        dashboard.log(i+"");
+    }}
